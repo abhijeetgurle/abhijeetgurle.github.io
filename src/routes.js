@@ -1,8 +1,10 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import { AnimatedSwitch, spring } from "react-router-transition";
+
 import Countries from "./containers/Countries/Countries";
 import Home from "./containers/Home/Home";
+import CountryDetails from "./containers/CountryDetails/CountryDetails";
 
 const glide = (val) => {
   return spring(val, {
@@ -31,7 +33,8 @@ const routes = (
     })}
     className="switch-wrapper"
   >
-    <Route path="/countries" component={Countries}></Route>
+    <Route path="/countries" exact component={Countries}></Route>
+    <Route path="/countries/:id" component={CountryDetails}></Route>
     <Route path="/" component={Home}></Route>
   </AnimatedSwitch>
 );

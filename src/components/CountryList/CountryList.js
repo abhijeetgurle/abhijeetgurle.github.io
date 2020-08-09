@@ -2,8 +2,13 @@ import React from "react";
 import classes from "./CountryList.module.css";
 
 const CountryList = (props) => {
-  const countriesJSX = props.countries.map((country) => (
-    <li className={classes["table-row"]} key={country.alpha3Code}>
+  console.log(props.countries);
+  const countriesJSX = props.countries.map((country, index) => (
+    <li
+      className={classes["table-row"]}
+      key={country.alpha3Code}
+      onClick={() => props.onCountryClickHandler(index)}
+    >
       <div
         className={[classes.col, classes["col-1"]].join(" ")}
         data-label="Flag"

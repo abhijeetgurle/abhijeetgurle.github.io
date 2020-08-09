@@ -1,4 +1,5 @@
 import React from "react";
+import qs from "qs";
 
 import SearchInput from "../../UI/SearchInput/SearchInput";
 
@@ -7,6 +8,18 @@ class Searchbar extends React.Component {
     q: "",
   };
 
+  componentDidMount() {
+    const query = qs.parse(this.props.location.search, {
+      ignoreQueryPrefix: true,
+    }).q;
+
+    if (query) {
+      this.setState({
+        q: query,
+      });
+    }
+  }
+
   onChangeQueryHandler = (q) => {
     this.setState({
       q: q,
@@ -14,7 +27,17 @@ class Searchbar extends React.Component {
   };
 
   onSearchHandler = () => {
-    this.props.history.push(`/countries?q=${this.state.q}`);
+    let selectedRegion = qs.parse(this.props.location.search, {
+      ignoreQueryPrefix: true,
+    }).region;
+
+    if (selectedRegion) {
+      this.props.history.push(
+        `/countries?q=${this.state.q}&region=${selectedRegion}`
+      );
+    } else {
+      this.props.history.push(`/countries?q=${this.state.q}`);
+    }
   };
 
   onKeyPressedHandler = (event) => {
