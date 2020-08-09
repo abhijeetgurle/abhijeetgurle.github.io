@@ -2,7 +2,6 @@ import React from "react";
 import classes from "./CountryList.module.css";
 
 const CountryList = (props) => {
-  console.log(props.countries);
   const countriesJSX = props.countries.map((country, index) => (
     <li
       className={classes["table-row"]}

@@ -7,15 +7,30 @@ class PageSelector extends React.Component {
   state = {
     pageSize: 50,
     pageSelected: 1,
+    numPages: 5,
   };
 
   componentDidMount() {
     this.updatePageSelected();
+    this.setNumPages();
   }
 
   componentDidUpdate() {
     this.updatePageSelected();
+    this.setNumPages();
   }
+
+  setNumPages = () => {
+    const numPages = Math.ceil(
+      Number(this.props.totalResults) / Number(this.props.pageSize)
+    );
+
+    if (this.state.numPages !== numPages) {
+      this.setState({
+        numPages: numPages,
+      });
+    }
+  };
 
   updatePageSelected = () => {
     let pageSelected = Number(
@@ -32,7 +47,6 @@ class PageSelector extends React.Component {
   };
 
   changePageSelectedHandler = (page) => {
-    console.log(this.props);
     if (page > 5) {
       page = 5;
     } else if (page < 1) {

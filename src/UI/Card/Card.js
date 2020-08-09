@@ -3,7 +3,6 @@ import React from "react";
 import classes from "./Card.module.css";
 
 const Card = (props) => {
-  console.log(props);
   return (
     <div className={classes.container}>
       <div className={classes.card}>
@@ -11,37 +10,47 @@ const Card = (props) => {
         <div className={classes["card-body"]}>
           <div className={classes["card-text"]}>
             <h3>{props.countryDetails.name}</h3>
-            <div>Native Name: {props.countryDetails.nativeName}</div>
-            <div>Area: {props.countryDetails.area}</div>
-            <div>Capital: {props.countryDetails.capital}</div>
-            <div>Population: {props.countryDetails.population}</div>
-            <div>Region: {props.countryDetails.region}</div>
-            <div>
-              Currencies:
-              <ul>
-                {props.countryDetails.currencies.map((currency) => (
-                  <li key={currency.name}>
-                    {currency.name} ({currency.symbol})
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              Timezones:
-              <ul>
-                {props.countryDetails.timezones.map((timezone, index) => (
-                  <li key={index}>{timezone}</li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              Borders:
-              <ul>
-                {props.countryDetails.borders.map((border, index) => (
-                  <li key={index}>{border}</li>
-                ))}
-              </ul>
-            </div>
+            <table className={classes.table}>
+              <tbody>
+                <tr>
+                  <td>Native Name</td>
+                  <td>{props.countryDetails.nativeName}</td>
+                </tr>
+                <tr>
+                  <td>Area</td>
+                  <td>{props.countryDetails.area}</td>
+                </tr>
+                <tr>
+                  <td>Capital</td>
+                  <td>{props.countryDetails.capital}</td>
+                </tr>
+                <tr>
+                  <td>Population</td>
+                  <td>{props.countryDetails.population}</td>
+                </tr>
+                <tr>
+                  <td>Region</td>
+                  <td>{props.countryDetails.region}</td>
+                </tr>
+                <tr>
+                  <td>Borders:</td>
+                  <td>
+                    {" "}
+                    {props.countryDetails.borders.map((border, index) => (
+                      <button
+                        key={index}
+                        className={classes.button}
+                        onClick={() =>
+                          props.onBorderCountryClickHandler(border)
+                        }
+                      >
+                        {border}
+                      </button>
+                    ))}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

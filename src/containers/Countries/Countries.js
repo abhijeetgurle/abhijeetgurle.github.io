@@ -33,7 +33,6 @@ class Countries extends React.Component {
         ignoreQueryPrefix: true,
       }).page
     );
-    console.log(pageSelected);
 
     if (selectedRegion === "All") {
       selectedRegion = null;
@@ -115,7 +114,6 @@ class Countries extends React.Component {
     axios
       .get("/all?fields=name;capital;flag;region;alpha3Code")
       .then((res) => {
-        console.log(res);
         this.setState({
           countries: res.data,
           loading: false,
@@ -158,7 +156,19 @@ class Countries extends React.Component {
   onCountryClickHandler = (index) => {
     const code = this.state.displayedCountries[index].alpha3Code;
     const query = this.state.q;
-    this.props.history.push(`/countries/${code}?q=${query}`);
+    const selectedRegion = this.state.selectedRegion;
+
+    if (query && selectedRegion) {
+      this.props.history.push(
+        `/countries/${code}?q=${query}&region=${selectedRegion}`
+      );
+    } else if (query) {
+      this.props.history.push(`/countries/${code}?q=${query}`);
+    } else if (selectedRegion) {
+      this.props.history.push(`/countries/${code}?region=${selectedRegion}`);
+    } else {
+      this.props.history.push(`/countries/${code}`);
+    }
   };
 
   getDropdownOptions = () => {
@@ -167,7 +177,6 @@ class Countries extends React.Component {
   };
 
   onSelectRegionHandler = (selectedRegion) => {
-    console.log(selectedRegion);
     const query = this.state.q;
 
     if (query && selectedRegion) {
@@ -179,13 +188,6 @@ class Countries extends React.Component {
 
   render() {
     const dropdownOptions = this.getDropdownOptions();
-    console.log(this.state.pageSelected);
-    console.log(
-      this.state.displayedCountries.slice(
-        (this.state.pageSelected - 1) * this.state.pageSize,
-        this.state.pageSelected * this.state.pageSize
-      )
-    );
 
     return (
       <div className="container">
@@ -197,6 +199,10 @@ class Countries extends React.Component {
         ></Dropdown>
         {this.state.loading ? (
           <Loader></Loader>
+        ) : this.state.displayedCountries.length === 0 ? (
+          <div style={{ marginTop: "150px", color: "red" }}>
+            No Results Found
+          </div>
         ) : (
           <CountryList
             countries={this.state.displayedCountries.slice(
@@ -207,7 +213,11 @@ class Countries extends React.Component {
           ></CountryList>
         )}
         {this.state.displayedCountries.length > 50 ? (
-          <PageSelector {...this.props}></PageSelector>
+          <PageSelector
+            {...this.props}
+            totalResults={this.state.displayedCountries.length}
+            pageSize={this.state.pageSize}
+          ></PageSelector>
         ) : null}
       </div>
     );
