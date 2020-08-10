@@ -44,6 +44,10 @@
 }
 
 @media all and (max-width: 767px) {
+    .container ul {
+        padding-inline-start: 0;
+    }
+
     .responsive-table .table-header {
         display: none;
     }

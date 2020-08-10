@@ -36,7 +36,7 @@ const CountryList = (props) => {
   ));
 
   return (
-    <div className="container" style={{ margin: "auto" }}>
+    <div className={classes["container"]} style={{ margin: "auto" }}>
       <ul className={classes["responsive-table"]}>
         <li className={classes["table-header"]}>
           <div className={[classes.col, classes["col-1"]].join(" ")}>Flag</div>

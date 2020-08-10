@@ -85,16 +85,19 @@ class Countries extends React.Component {
       this.setState({
         q: query,
         selectedRegion: selectedRegion,
+        pageSelected: 1,
       });
       this.filterCountries(query, selectedRegion);
     } else if (this.state.q !== query) {
       this.setState({
         q: query,
+        pageSelected: 1,
       });
       this.filterCountries(query, selectedRegion);
     } else if (this.state.selectedRegion !== selectedRegion) {
       this.setState({
         selectedRegion: selectedRegion,
+        pageSelected: 1,
       });
       this.filterCountries(query, selectedRegion);
     }

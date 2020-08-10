@@ -47,8 +47,8 @@ class PageSelector extends React.Component {
   };
 
   changePageSelectedHandler = (page) => {
-    if (page > 5) {
-      page = 5;
+    if (page > this.state.numPages) {
+      page = this.state.numPages;
     } else if (page < 1) {
       page = 1;
     }
@@ -84,6 +84,7 @@ class PageSelector extends React.Component {
       <Pagination
         changePageSelectedHandler={this.changePageSelectedHandler}
         pageSelected={this.state.pageSelected}
+        numPages={this.state.numPages}
       ></Pagination>
     );
   }

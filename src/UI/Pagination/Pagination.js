@@ -3,6 +3,26 @@ import React from "react";
 import classes from "./Pagination.module.css";
 
 const Pagination = (props) => {
+  const buttonJSX = [];
+
+  const createButtons = () => {
+    for (let i = 0; i < props.numPages; i++) {
+      const button = (
+        <button
+          key={i + 1}
+          className={props.pageSelected === i + 1 ? classes.active : null}
+          onClick={() => props.changePageSelectedHandler(i + 1)}
+        >
+          {i + 1}
+        </button>
+      );
+
+      buttonJSX.push(button);
+    }
+  };
+
+  createButtons();
+
   return (
     <div className={classes.pagination}>
       <button
@@ -10,36 +30,7 @@ const Pagination = (props) => {
       >
         &laquo;
       </button>
-      <button
-        className={props.pageSelected === 1 ? classes.active : null}
-        onClick={() => props.changePageSelectedHandler(1)}
-      >
-        1
-      </button>
-      <button
-        className={props.pageSelected === 2 ? classes.active : null}
-        onClick={() => props.changePageSelectedHandler(2)}
-      >
-        2
-      </button>
-      <button
-        className={props.pageSelected === 3 ? classes.active : null}
-        onClick={() => props.changePageSelectedHandler(3)}
-      >
-        3
-      </button>
-      <button
-        className={props.pageSelected === 4 ? classes.active : null}
-        onClick={() => props.changePageSelectedHandler(4)}
-      >
-        4
-      </button>
-      <button
-        className={props.pageSelected === 5 ? classes.active : null}
-        onClick={() => props.changePageSelectedHandler(5)}
-      >
-        5
-      </button>
+      {buttonJSX}
       <button
         onClick={() => props.changePageSelectedHandler(props.pageSelected + 1)}
       >
